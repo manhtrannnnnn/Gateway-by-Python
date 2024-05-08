@@ -9,14 +9,14 @@ class UARTData:
 def getPort():
     ports = serial.tools.list_ports.comports()
     N = len(ports)
-    commPort = "None"
+    commPort = "None"   
     for i in range(0, N):
         port = ports[i]
         strPort = str(port)
         if "USB Serial Device" in strPort:
             splitPort = strPort.split(" ")
             commPort = (splitPort[0])
-    return "COM7"
+    return "COM5"
 
 if getPort() != "None":
   ser = serial.Serial( port=getPort(), baudrate=115200)
@@ -26,15 +26,18 @@ def processData(client, data):
     data = data.replace("!", "")
     data = data.replace("#", "")
     splitData = data.split(":")
-    if splitData[0] == "TEMP" and splitData[2] == "HUMI" and splitData[4] == "SOIL" and splitData[6] == "LIGHT":
-        UARTData.tmp = splitData[1]
-        UARTData.humi = splitData[3]
-        UARTData.soil = splitData[5]
-        UARTData.light = splitData[7]
+    UARTData.tmp = splitData[1]
+    UARTData.humi = splitData[3]
+    UARTData.soil = splitData[5]
+    UARTData.light = splitData[7]
+    if splitData[0] == "TEMP":
         client.publish("temperature", UARTData.tmp)
+    if splitData[2] == "HUMI":
         client.publish("airhumidity", UARTData.humi)
+    if splitData[4] == "SOIL":
         client.publish("earthhumidity", UARTData.soil)
-        client.publish("light", UARTData.light)
+    if splitData[6] == "LIGHT": 
+        client.publish("light", UARTData.light)       
 
 mess = ""
 
