@@ -16,5 +16,14 @@ This Python program allows users to control IoT devices such as LEDs and water p
 
 ```bash
 git clone https://github.com/manhtrannnnnn/Gateway-by-Python.git
+```
 
-## Installation
+## Run app:
+To run the IoT gateway application, follow these steps:
+
+1. Open a terminal or command prompt.
+2. Navigate to the directory containing the cloned repository.
+3. Run the following command:
+```bash
+python.py
+```
