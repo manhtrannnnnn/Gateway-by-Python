@@ -25,5 +25,5 @@ To run the IoT gateway application, follow these steps:
 2. Navigate to the directory containing the cloned repository.
 3. Run the following command:
 ```bash
-python.py
+python main.py
 ```
