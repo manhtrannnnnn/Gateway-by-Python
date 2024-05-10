@@ -84,16 +84,19 @@ client.connect()
 client.loop_background()  
 
 
-def gateway():
+def read_serial():
     while True:
         readSerial(client)
         time.sleep(1)
-thread1 = Thread(target=gateway)
-thread1.start()
 
-while True:
-    if(speechState == 1):
-        speech_recognition(client)
-        client.publish("speechRecognition", "false")
-        speechState = 0
+def recognize_speech():
+    while True:
+        if speechState == 1:
+            speech_recognition(client)
+            client.publish("speechRecognition", "false")
+            speechState = 0
+
+thread_serial = Thread(target=read_serial)
+thread_serial.start()
+recognize_speech()
     
